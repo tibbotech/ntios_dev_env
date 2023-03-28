@@ -1,0 +1,115 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "LTPP3G2: Enter Device Ip Address",
+            "type": "shell",
+            "command": "echo",
+            "args": [
+                "${input:ltpp3g2ip}",
+                ">",
+                ".vscode/target.device"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Select Remote Path LTPP3G2 top copy files to.",
+            "type": "shell",
+            "command": "echo",
+            "args": [
+                "${input:ltpp3g2path}",
+                ">",
+                ".vscode/target.path"
+            ],
+            "problemMatcher": []
+        },
+    ]
+    /*    {
+            "label": "Debug on LTPP3G2",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/start_debugging.sh",
+            "args": [],
+            "dependsOn": [
+                "Copy files to LTPP3G2"
+            ],
+            "problemMatcher": []
+        },
+        
+        {
+            "label": "Select Remote Path LTPP3G2 top copy files to.",
+            "type": "shell",
+            "command": "echo",
+            "args": [
+                "${input:ltpp3g2path}",
+                ">",
+                ".vscode/target.path"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Select remote executable to Debug",
+            "type": "shell",
+            "command": "echo",
+            "args": [
+                "${input:ltpp3g2exe}",
+                ">",
+                ".vscode/target.exe"
+            ],
+            "problemMatcher": []
+        },
+       
+        {
+            "label": "Copy files to LTPP3G2",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/copy_output_dir.sh",
+            "args": [],
+            "problemMatcher": []
+        },
+        {
+            "label": "Deploy Libs",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/deploy_libs.sh",
+            "args": [],
+            "problemMatcher": []
+        },
+        {
+            "label": "Deploy Includes",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/deploy_includes.sh",
+            "args": [],
+            "problemMatcher": []
+        }
+    ]*/ ,
+    "inputs": [
+        {
+            "id": "ltpp3g2ip",
+            "type": "promptString",
+            "description": "Enter the ip address or hostname of the LTPP3G2",
+            "default": "192.168.1.100"
+        },
+        {
+            "id": "ltpp3g2path",
+            "type": "promptString",
+            "description": "Enter the path where to place the app folder",
+            "default": "/home/ubuntu/"
+        },
+        {
+            "id": "ltpp3g2username",
+            "type": "promptString",
+            "description": "Enter the username",
+            "default": "ubuntu"
+        },
+        {
+            "id": "ltpp3g2password",
+            "type": "promptString",
+            "description": "Enter the password",
+            "default": "ubuntu"
+        }
+    ]
+}
