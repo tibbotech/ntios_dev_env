@@ -49,10 +49,13 @@ RUN apt -y install  git			            \
                     net-tools               \
                     arping                  \
                     libgpiod-dev:armhf      \
-                    openssh-server
+                    openssh-server          \
+                    xz-utils                \
+                    zstd                    \
+                    iproute2
 
 #clone the ntios_dev_env repo
-RUN git clone https://github.com/tibbotech/ntios_dev_env.git
+RUN cd /root && git clone https://github.com/tibbotech/ntios_dev_env.git
 
 #---Configure SSH
 RUN mkdir /var/run/sshd

@@ -34,7 +34,7 @@ include_directories(
 file(GLOB SRC_FILES "src/*.cpp" "src/*.h")
 
 add_executable(${PROJECT_NAME} 
-               ${CMAKE_SOURCE_DIR}/ntios/src/main.cpp
+               ${CMAKE_SOURCE_DIR}/src/main.cpp
                ${SRC_FILES}
                ${CMAKE_CURRENT_SOURCE_DIR}/resources/resources.cpp)
 

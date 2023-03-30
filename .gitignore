@@ -1,3 +1,8 @@
 build/
 .vscode/target.device
 .vscode/settings.json
+.vscode/host.txt
+.vscode/devices.txt
+ntios/inc/
+ntios/libs/
+ntios/deb/
