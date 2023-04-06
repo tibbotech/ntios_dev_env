@@ -1,5 +1,6 @@
 build/
 .vscode/target.device
+.vscode/devices.txt
 .vscode/settings.json
 .vscode/host.txt
 .vscode/devices.txt

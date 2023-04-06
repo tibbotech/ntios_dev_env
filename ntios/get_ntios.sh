@@ -5,7 +5,7 @@
 #if there are no parameters use the default version number
 if [ -z "$1" ]; then
     image_version="0_6_0"
-    version_number="0.6.0-1"
+    version_number="0.6.1-1"
 else
     image_version=$1
     version_number=$2

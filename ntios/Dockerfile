@@ -52,17 +52,9 @@ RUN apt -y install  git			            \
                     openssh-server          \
                     xz-utils                \
                     zstd                    \
-                    iproute2
+                    iproute2                \
+                    snmp                    \
+                    libsnmp-dev         
 
 #clone the ntios_dev_env repo
 RUN cd /root && git clone https://github.com/tibbotech/ntios_dev_env.git
-
-#---Configure SSH
-RUN mkdir /var/run/sshd
-RUN echo 'root:root' | chpasswd
-RUN sed -i 's/#*PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
-ENV NOTVISIBLE="in users profile"
-RUN echo "export VISIBLE=now" >> /etc/profile
-
-EXPOSE 22
-CMD ["/usr/sbin/sshd", "-D"]

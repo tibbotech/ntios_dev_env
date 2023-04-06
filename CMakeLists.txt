@@ -67,7 +67,7 @@ COMMENT "Preparing Resources")
 add_custom_target(prep_resources ${PROJECT_NAME} DEPENDS ${TIOS_RESOURCES}  )
 
 #we use fpermisive because tios is permissive. The good thing here is we will get a warning if we do some implicit castings which are dangerous. 
-target_compile_options(${PROJECT_NAME} PUBLIC -include ${CMAKE_SOURCE_DIR}/ntios/inc/ntios_includes.h -fpermissive)
+target_compile_options(${PROJECT_NAME} PUBLIC -include ${CMAKE_SOURCE_DIR}/ntios/inc/threads/ntios_includes.h -fpermissive)
 
 
 message("---------------CMake: Configure END---------------")
