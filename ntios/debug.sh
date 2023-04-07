@@ -23,18 +23,27 @@ fi
 cp -r $DIR/../ntios $DIR/../build/
 cp $DIR/../build/$PROJ_NAME $DIR/../build/ntios
 
-echo "./$PROJ_NAME" >>  gdbserver $DIR/../build/ntios/run.sh
+echo "sudo gdbserver 0.0.0.0:3333 ./$PROJ_NAME" >>   $DIR/../build/ntios/run.sh
 
 # Define the name of the local folder and the remote folder
 LOCAL_FOLDER=$DIR/../build/ntios
 REMOTE_FOLDER="/home/ubuntu/ntios"
 
+echo "Starting Debugging 1..."
+echo "Starting Debugging 2..."
+
 expect <<EOF
+  spawn ssh $TARGET_USER@$TARGET_IP
+  expect "password:"
+  send "$PASSWORD\n"
+  expect "ubuntu@"
+  send "echo $PASSWORD | rm -rf $REMOTE_FOLDER\r"
+  send "exit" 
   spawn sftp $TARGET_USER@$TARGET_IP
   expect "password:"
   send "$PASSWORD\n"
   expect "sftp>"
-  send "put  -r overwrite=always $LOCAL_FOLDER $REMOTE_FOLDER\n"
+  send "put  -r $LOCAL_FOLDER $REMOTE_FOLDER\n"
   expect "sftp>"
   send "exit\n"
   spawn ssh $TARGET_USER@$TARGET_IP
@@ -42,10 +51,11 @@ expect <<EOF
   send "$PASSWORD\n"
   expect "ubuntu@"
   send "cd $REMOTE_FOLDER\r"
+  send "echo $PASSWORD | sudo -S ufw allow 3333\r"
   send "echo $PASSWORD | sudo -S ./run.sh\r"
   set timeout 1000000
+  expect "ubuntu@"
+  send "exit\r"
   expect eof
 EOF
 
-
-wait

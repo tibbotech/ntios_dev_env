@@ -20,8 +20,7 @@ fi
 
 if [ -z "$3" ]
 then
-    #oid="1.3.6.1.4.1.20738"
-    oid="1.3.6.1.2.1.1.1" 
+    oid="1.3.6.1.4.1.20738"
 else
     oid=$3
 fi
@@ -31,12 +30,15 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 devices_ip=$DIR/../../.vscode/devices.txt
 
 # Remove any existing devices.txt file
-echo "" > $devices_ip
+#if devices.txt exists remove it
+if [ -f "$devices_ip" ]; then
+    rm $devices_ip
+fi
 
 # Create a function to call the 'walk' executable with a given IP address
 function scan_ip() {
     ip=$1
-    ./walk $ip $oid > /dev/null 2>&1
+    $DIR/walk $ip $oid > /dev/null 2>&1
     if [ $? -eq 0 ]; then
         echo $ip >> $devices_ip
     fi
@@ -55,4 +57,11 @@ done
 
 # Wait for any remaining jobs to complete
 wait
+
+#read device list into a variable 
+
+
+export DEVICE_LIST=$(cat $DIR/../../.vscode/devices.txt)
+
+
 

@@ -6,92 +6,85 @@
         {
             "label": "LTPP3G2: Enter Device Ip Address",
             "type": "shell",
-            "command": "echo",
+            "command": "${workspaceFolder}/.vscode/generate_launch.sh",
             "args": [
-                "${input:ltpp3g2ip}",
-                ">",
-                ".vscode/target.device"
-            ],
-            "problemMatcher": [],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        },
-        {
-            "label": "Select Remote Path LTPP3G2 top copy files to.",
-            "type": "shell",
-            "command": "echo",
-            "args": [
-                "${input:ltpp3g2path}",
-                ">",
-                ".vscode/target.path"
+                "${input:ltpp3g2ip}"
             ],
             "problemMatcher": []
         },
-    ]
-    /*    {
-            "label": "Debug on LTPP3G2",
+        {
+            "label": "LTPP3G2: Enter Device Username",
             "type": "shell",
-            "command": "${workspaceFolder}/scripts/start_debugging.sh",
-            "args": [],
+            "command": "echo",
+            "args": [
+                "${input:ltpp3g2username}",
+                ">",
+                ".vscode/target.username"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "LTPP3G2: Enter Device Password",
+            "type": "shell",
+            "command": "echo",
+            "args": [
+                "${input:ltpp3g2password}",
+                ">",
+                ".vscode/target.password"
+            ]
+        },
+        {
+            "label": "LTPP3G2: Search for devices snmp",
+            "type": "shell",
+            "command": "${workspaceFolder}/ntios/snmp_config/find_devices_snmp.sh ${input:start_address} ${input:end_address}",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "LTPP3G2: CMake Build",
+            "command": "build",
+            "type": "cmake",
+            "group": "build",
+        },
+        {
+            "label": "LTPP3G2: Deploy and Launch Debug",
+            "type": "shell",
+            "command": "bash  ${workspaceFolder}/ntios/debug.sh \"$(cat ./.vscode/target.device)\" \"$(cat ./.vscode/target.username)\" \"$(cat ./.vscode/target.password)\"",
             "dependsOn": [
-                "Copy files to LTPP3G2"
+                "LTPP3G2: CMake Build",
             ],
-            "problemMatcher": []
-        },
-        
-        {
-            "label": "Select Remote Path LTPP3G2 top copy files to.",
-            "type": "shell",
-            "command": "echo",
-            "args": [
-                "${input:ltpp3g2path}",
-                ">",
-                ".vscode/target.path"
-            ],
-            "problemMatcher": []
-        },
-        {
-            "label": "Select remote executable to Debug",
-            "type": "shell",
-            "command": "echo",
-            "args": [
-                "${input:ltpp3g2exe}",
-                ">",
-                ".vscode/target.exe"
-            ],
-            "problemMatcher": []
-        },
-       
-        {
-            "label": "Copy files to LTPP3G2",
-            "type": "shell",
-            "command": "${workspaceFolder}/scripts/copy_output_dir.sh",
-            "args": [],
-            "problemMatcher": []
-        },
-        {
-            "label": "Deploy Libs",
-            "type": "shell",
-            "command": "${workspaceFolder}/scripts/deploy_libs.sh",
-            "args": [],
-            "problemMatcher": []
-        },
-        {
-            "label": "Deploy Includes",
-            "type": "shell",
-            "command": "${workspaceFolder}/scripts/deploy_includes.sh",
-            "args": [],
-            "problemMatcher": []
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        "regexp": "ERROR in (.*)",
+                        "file": 1,
+                        "message": 3,
+                        "line": 1,
+                        "column": 2,
+                    }
+                ],
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "Starting Debugging 1...", 
+                    "endsPattern": "Starting Debugging 2...",
+                }
+            }
         }
-    ]*/ ,
+    ],
     "inputs": [
         {
             "id": "ltpp3g2ip",
             "type": "promptString",
             "description": "Enter the ip address or hostname of the LTPP3G2",
-            "default": "192.168.1.100"
+            "default": "192.168.1.100",
         },
         {
             "id": "ltpp3g2path",
@@ -110,6 +103,18 @@
             "type": "promptString",
             "description": "Enter the password",
             "default": "ubuntu"
+        },
+        {
+            "id": "start_address",
+            "type": "promptString",
+            "description": "Enter the start address",
+            "default": "192.168.11.1"
+        },
+        {
+            "id": "end_address",
+            "type": "promptString",
+            "description": "Enter the end address",
+            "default": "192.168.11.255"
         }
     ]
 }

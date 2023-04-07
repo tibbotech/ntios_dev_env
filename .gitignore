@@ -4,6 +4,8 @@ build/
 .vscode/settings.json
 .vscode/host.txt
 .vscode/devices.txt
+.vscode/target.username
+.vscode/target.password
 ntios/inc/
 ntios/libs/
 ntios/deb/
