@@ -5,14 +5,23 @@
 #if there are no parameters use the default version number
 if [ -z "$1" ]; then
     image_version="0_6_0"
-    version_number="0.6.1-1"
 else
     image_version=$1
+fi
+
+if [ -z "$2" ]; then
+    version_number="0.6.0-1"
+else 
     version_number=$2
 fi
 
 deb_file_name="tibbo-oobe_"$version_number"_all.deb"
-tibbo_oobe_location="https://tibbotech.github.io/ltpp3g2_ppa/u"$image_version"/"$deb_file_name""
+
+if [ -z "$3" ]; then
+    tibbo_oobe_location="https://tibbotech.github.io/ltpp3g2_ppa/u"$image_version"/"$deb_file_name""
+else 
+    tibbo_oobe_location="$3"$image_version"/"$deb_file_name""
+fi
 
 
 #get this files location

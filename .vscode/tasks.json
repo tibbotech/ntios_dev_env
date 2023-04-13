@@ -36,7 +36,7 @@
         {
             "label": "LTPP3G2: Search for devices snmp",
             "type": "shell",
-            "command": "${workspaceFolder}/ntios/snmp_config/find_devices_snmp.sh ${input:start_address} ${input:end_address}",
+            "command": "${workspaceFolder}/ntios/find_devices_snmp.sh ${input:start_address} ${input:end_address}",
             "presentation": {
                 "echo": true,
                 "reveal": "always",
@@ -52,31 +52,37 @@
             "command": "build",
             "type": "cmake",
             "group": "build",
+            "problemMatcher": "$msCompile"
         },
         {
-            "label": "LTPP3G2: Deploy and Launch Debug",
+            "label": "LTPP3G2: Deploy and Launch Debug Server",
             "type": "shell",
             "command": "bash  ${workspaceFolder}/ntios/debug.sh \"$(cat ./.vscode/target.device)\" \"$(cat ./.vscode/target.username)\" \"$(cat ./.vscode/target.password)\"",
-            "dependsOn": [
-                "LTPP3G2: CMake Build",
-            ],
             "isBackground": true,
             "problemMatcher": {
-                "pattern": [
-                    {
-                        "regexp": "ERROR in (.*)",
-                        "file": 1,
-                        "message": 3,
-                        "line": 1,
-                        "column": 2,
-                    }
-                ],
+                "pattern": {
+                    "regexp": "error",
+                    "file": 1,
+                    "line": 2,
+                    "severity": 3,
+                    "message": 4
+                },
                 "background": {
-                    "activeOnStart": true,
-                    "beginsPattern": "Starting Debugging 1...", 
-                    "endsPattern": "Starting Debugging 2...",
+                    "activeOnStart": false,
+                    "beginsPattern": "Starting Debugging 1...",
+                    "endsPattern": "(Starting Debugging 2...)*(error)*",
                 }
             }
+        }, 
+        {
+            "label": "LTPP3G2: Build and Deploy",
+            "type": "shell",
+            "command": "echo Ready to debug",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "LTPP3G2: CMake Build",
+                "LTPP3G2: Deploy and Launch Debug Server"
+            ],
         }
     ],
     "inputs": [

@@ -30,7 +30,7 @@ LOCAL_FOLDER=$DIR/../build/ntios
 REMOTE_FOLDER="/home/ubuntu/ntios"
 
 echo "Starting Debugging 1..."
-echo "Starting Debugging 2..."
+
 
 expect <<EOF
   spawn ssh $TARGET_USER@$TARGET_IP
@@ -52,6 +52,7 @@ expect <<EOF
   expect "ubuntu@"
   send "cd $REMOTE_FOLDER\r"
   send "echo $PASSWORD | sudo -S ufw allow 3333\r"
+  puts "Starting Debugging 2..."
   send "echo $PASSWORD | sudo -S ./run.sh\r"
   set timeout 1000000
   expect "ubuntu@"

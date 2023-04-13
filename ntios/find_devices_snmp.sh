@@ -27,18 +27,15 @@ fi
 
 #get the directory of this script 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-devices_ip=$DIR/../../.vscode/devices.txt
+devices_ip=$DIR/../.vscode/devices.txt
 
 # Remove any existing devices.txt file
-#if devices.txt exists remove it
-if [ -f "$devices_ip" ]; then
-    rm $devices_ip
-fi
+echo "" >  $devices_ip
 
 # Create a function to call the 'walk' executable with a given IP address
 function scan_ip() {
     ip=$1
-    $DIR/walk $ip $oid > /dev/null 2>&1
+    $DIR/snmp/walk $ip $oid > /dev/null 2>&1
     if [ $? -eq 0 ]; then
         echo $ip >> $devices_ip
     fi
@@ -58,10 +55,6 @@ done
 # Wait for any remaining jobs to complete
 wait
 
-#read device list into a variable 
-
-
-export DEVICE_LIST=$(cat $DIR/../../.vscode/devices.txt)
 
 
 

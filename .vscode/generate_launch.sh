@@ -50,7 +50,7 @@ launch_json_content=$(cat << EOF
             ],
             "miDebuggerPath": "/usr/bin/gdb-multiarch",
             "targetArchitecture": "arm",
-            "preLaunchTask": ""LTPP3G2: Deploy and Launch Debug""
+            "preLaunchTask": "LTPP3G2: Deploy and Launch Debug"
         }
     ]
 }

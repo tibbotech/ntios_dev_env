@@ -14,25 +14,28 @@ if [ -z "$1" ]; then
 else
     scan_ip=$1
 fi
+
 echo "Scanning this range: $scan_ip" 
-#get this files location
+
+#get files location
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-cd $DIR
+devices_ip=$DIR/../.vscode/devices.txt
+host_ip=$DIR/../.vscode/hosts.txt
 
 # Perform a quick ping sweep of the network with fping
-fping -a -g $scan_ip -t 1 -q > ../.vscode/hosts.txt
+fping -a -g $scan_ip -t 1 -q > $host_ip
 
 
 #clear ../.vscode/devices.txt
-echo "" > ../.vscode/devices.txt
+echo "" > $devices_ip
 
 # Filter the results for devices with Sunplus OUIs
 while read -r host; do
   if [[ $(arp "$host" | grep -c "$OUI1\|$OUI2\|$OUI3") -ne 0 ]]; then
     #append each host to the devices file
-    echo "$host" >> ../.vscode/devices.txt
+    echo "$host" >> $devices_ip
   fi
-done < ../.vscode/hosts.txt
+done < $host_ip
 
 # Remove the temporary file
-rm ../.vscode/hosts.txt
+rm $host_ip
