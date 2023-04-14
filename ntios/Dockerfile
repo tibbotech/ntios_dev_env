@@ -12,6 +12,33 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN sed -i "s#deb http://\(.*\) #deb [arch=$(dpkg --print-architecture)] http://\1 #g" /etc/apt/sources.list
 
+
+#---Update and Upgrade
+RUN apt-get -y update
+RUN apt-get -y upgrade
+
+#---Install mandatory apps
+RUN apt-get -y install  git                 \
+                    wget                    \
+                    curl                    \
+                    build-essential	        \
+                    g++-arm-linux-gnueabihf \ 
+                    gdb-multiarch           \
+                    gcc-arm-none-eabi       \
+                    libc6-armel-cross       \
+                    libc6-dev-armel-cross   \
+                    cmake                   \
+                    expect                  \
+                    fping                   \
+                    iputils-ping            \    
+                    net-tools               \
+                    arping                  \
+                    xz-utils                \
+                    zstd                    \
+                    iproute2                \
+                    snmp                    \
+                    libsnmp-dev
+
 #---Enable multiarch
 RUN echo "deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports/ focal main restricted" >> /etc/apt/sources.list
 RUN echo "deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports/ focal-updates main restricted" >> /etc/apt/sources.list
@@ -28,33 +55,7 @@ RUN dpkg --add-architecture armhf
 #---Update and Upgrade
 RUN apt-get -y update
 RUN apt-get -y upgrade
-
-#---Install mandatory apps
-RUN apt -y install  git			            \
-                    wget                    \
-                    nano                    \
-                    vim                     \
-                    curl                    \
-                    apt-utils               \
-                    build-essential	        \
-                    g++-arm-linux-gnueabihf \ 
-                    gdb-multiarch           \
-                    gcc-arm-none-eabi       \
-                    libc6-armel-cross       \
-                    libc6-dev-armel-cross   \
-                    cmake                   \
-                    expect                  \
-                    fping                   \
-                    iputils-ping            \    
-                    net-tools               \
-                    arping                  \
-                    libgpiod-dev:armhf      \
-                    openssh-server          \
-                    xz-utils                \
-                    zstd                    \
-                    iproute2                \
-                    snmp                    \
-                    libsnmp-dev         
+RUN apt-get -y install  libgpiod-dev:armhf
 
 #clone the ntios_dev_env repo
 RUN cd /root && git clone https://github.com/tibbotech/ntios_dev_env.git
