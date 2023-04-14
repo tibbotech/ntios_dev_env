@@ -24,10 +24,10 @@ If you are using windows please use docker desktop.
 * Open VSCode 
 * Use the extensions marketplace to install the docker extension.
   * ![Docker Extension](./docs/images/docker_extension.png)
-* Make sure to "Install in Container" the C++ Extension Pack from Microsoft.
-  * ![C++ Extension Pack](./docs/images/C_extension.png)
 * Attach vscode to the container using the Docker extension. 
   * ![Select the container](./docs/images/vscode_container.png)
+* Make sure to "Install in Container" the C++ Extension Pack from Microsoft.
+  * ![C++ Extension Pack](./docs/images/C_extension.png)
 * Open the folder /root/ntios_dev_env
   * ![Open folder ](./docs/images/open_folder.png)
 * Get the latest version of the ntios libraries by running the task: Get Libraries. 
