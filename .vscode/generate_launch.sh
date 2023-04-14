@@ -47,7 +47,7 @@ ltpp3g2_launch_config=$(cat << EOF
             ],
             "miDebuggerPath": "/usr/bin/gdb-multiarch",
             "targetArchitecture": "arm",
-            "preLaunchTask": "LTPP3G2: Deploy and Launch Debug"
+            "preLaunchTask": "LTPP3G2: Build and Debug"
 }
 EOF
 )

@@ -55,6 +55,20 @@
             "problemMatcher": "$msCompile"
         },
         {
+            "label": "LTPP3G2: Get Latest Libraries",
+            "type": "shell",
+            "command": "ntios/get_ntios.sh",
+            "problemMatcher": {
+                "pattern": {
+                    "regexp": "error",
+                    "file": 1,
+                    "line": 2,
+                    "severity": 3,
+                    "message": 4
+                }
+            }
+        },
+        {
             "label": "LTPP3G2: Deploy and Launch Debug Server",
             "type": "shell",
             "command": "bash  ${workspaceFolder}/ntios/debug.sh \"$(cat ./.vscode/target.device)\" \"$(cat ./.vscode/target.username)\" \"$(cat ./.vscode/target.password)\"",
@@ -75,7 +89,7 @@
             }
         }, 
         {
-            "label": "LTPP3G2: Build and Deploy",
+            "label": "LTPP3G2: Build and Debug",
             "type": "shell",
             "command": "echo Ready to debug",
             "dependsOrder": "sequence",

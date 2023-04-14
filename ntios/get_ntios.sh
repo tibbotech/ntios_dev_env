@@ -20,7 +20,7 @@ deb_file_name="tibbo-oobe_"$version_number"_all.deb"
 if [ -z "$3" ]; then
     tibbo_oobe_location="https://tibbotech.github.io/ltpp3g2_ppa/u"$image_version"/"$deb_file_name""
 else 
-    tibbo_oobe_location="$3"$image_version"/"$deb_file_name""
+    tibbo_oobe_location="$3"
 fi
 
 
