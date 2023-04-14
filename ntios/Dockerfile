@@ -38,7 +38,8 @@ RUN apt-get -y install  git                 \
                     iproute2                \
                     snmp                    \
                     libsnmp-dev             \
-                    jq
+                    jq                      \
+                    xxd
 
 #---Enable multiarch
 RUN echo "deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports/ focal main restricted" >> /etc/apt/sources.list
