@@ -52,8 +52,10 @@ ltpp3g2_launch_config=$(cat << EOF
 EOF
 )
 
-# Construct the launch.json content with the updated IP address
-launch_json_content=$(cat << EOF
+# Check if launch.json file exists
+if [ ! -f "$launch_json_file" ]; then
+    # If launch.json does not exist, create it with the new configuration
+    launch_json_content=$(cat << EOF
 {
     "version": "0.2.0",
     "configurations": [
@@ -62,11 +64,17 @@ launch_json_content=$(cat << EOF
 }
 EOF
 )
-
-#if launch.json does not exist create it
-if [ ! -f "$launch_json_file" ]; then
-     echo "$launch_json_content" >  $launch_json_file
-else 
-#use JQ to replace from the configurations array the confiuration named "Attach to LTPP3G2" with the one in ltpp3g2_launch_config variable
-    jq --argjson ltpp3g2_launch_config "$ltpp3g2_launch_config" '.configurations |= map(if .name == "Attach to LTPP3G2" then $ltpp3g2_launch_config else . end)' $launch_json_file > $launch_json_file.tmp && mv $launch_json_file.tmp $launch_json_file
+    echo "$launch_json_content" > $launch_json_file
+else
+    # If launch.json already exists clear comments
+    sed -i 's/^\s*\/\*.*\*\/\s*/ /g' $launch_json_file
+    sed -i '/^\s*\/\//d' $launch_json_file
+    #check if configurations array is empty
+    if [ "$(jq '.configurations | length' $launch_json_file)" -eq "0" ]; then
+        # If configurations array is empty, add the new configuration to it
+        jq --argjson ltpp3g2_launch_config "$ltpp3g2_launch_config" '.configurations |= [$ltpp3g2_launch_config]' $launch_json_file > $launch_json_file.tmp && mv $launch_json_file.tmp $launch_json_file
+    else
+        # If configurations array is not empty, use JQ to replace the configuration named "Attach to LTPP3G2" with the new configuration
+         jq --argjson ltpp3g2_launch_config "$ltpp3g2_launch_config" '.configurations |= map(if .name == "Attach to LTPP3G2" then $ltpp3g2_launch_config else . end)' $launch_json_file > $launch_json_file.tmp && mv $launch_json_file.tmp $launch_json_file
+    fi
 fi

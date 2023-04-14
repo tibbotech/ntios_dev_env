@@ -10,11 +10,6 @@ KNOWN_HOSTS_FILE="$HOME/.ssh/known_hosts"
 
 GDBPORT=3333
 
-#if service ntios_app is running stop it 
-if [ $(systemctl is-active ntios_app.service) == "active" ]; then
-    systemctl stop ntios_app.service
-fi
-
 #get path to current script file 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
@@ -82,6 +77,7 @@ expect <<EOF
   send "$PASSWORD\n"
   expect "$USERNAME@"
   send "cd $REMOTE_FOLDER\r"
+  send "echo $PASSWORD | sudo -S systemctl stop ntios_app.service\r"
   send "echo $PASSWORD | sudo -S ufw allow $GDBPORT\r"
   puts "Starting Debugging 2..."
   send "echo $PASSWORD | sudo -S ./run.sh\r"
