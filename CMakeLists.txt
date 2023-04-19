@@ -59,8 +59,7 @@ target_link_libraries(  ${PROJECT_NAME} PRIVATE
                         gpiod
                         pthread rt)
 
-set(TIOS_RESOURCES 
-"${CMAKE_CURRENT_SOURCE_DIR}/resources/resources.cpp")
+set(TIOS_RESOURCES "${CMAKE_CURRENT_SOURCE_DIR}/resources/resources.cpp")
 
 add_custom_command(OUTPUT ${TIOS_RESOURCES}
 COMMAND ${CMAKE_SOURCE_DIR}/ntios/prep_resources.sh  ${CMAKE_CURRENT_SOURCE_DIR}/resources/ ${CMAKE_CURRENT_SOURCE_DIR}/resources/resources.cpp
@@ -68,6 +67,7 @@ COMMENT "Preparing Resources")
 
 
 add_custom_target(prep_resources ${PROJECT_NAME} DEPENDS ${TIOS_RESOURCES}  )
+
 
 #we use fpermisive because tios is permissive. The good thing here is we will get a warning if we do some implicit castings which are dangerous. 
 target_compile_options(${PROJECT_NAME} PUBLIC -include ${CMAKE_SOURCE_DIR}/ntios/inc/threads/ntios_includes.h -fpermissive)

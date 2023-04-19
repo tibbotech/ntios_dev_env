@@ -10,7 +10,7 @@ echo "-------------------------------STARTING RESOURCE GENERATION---------------
 
 OLDIFS=$IFS
 IFS=$'\n'
-files=( $(ls $1/*) ) 
+files=( $(ls $1*) ) 
 #prinf length of files 
 numfiles=$(echo ${#files[@]})
  

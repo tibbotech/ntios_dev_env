@@ -48,6 +48,13 @@
             "problemMatcher": []
         },
         {
+            "label": "LTPP3G2: CMake Configure",
+            "command": "configure",
+            "type": "cmake",
+            "group": "build",
+            "problemMatcher": "$msCompile"
+        },
+        {
             "label": "LTPP3G2: CMake Build",
             "command": "build",
             "type": "cmake",
@@ -94,6 +101,7 @@
             "command": "echo Ready to debug",
             "dependsOrder": "sequence",
             "dependsOn": [
+                "LTPP3G2: CMake Configure",
                 "LTPP3G2: CMake Build",
                 "LTPP3G2: Deploy and Launch Debug Server"
             ],

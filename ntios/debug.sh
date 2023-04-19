@@ -30,7 +30,7 @@ fi
 cp -r $DIR/../ntios $DIR/../build/
 cp $DIR/../build/$PROJ_NAME $DIR/../build/ntios
 
-echo "sudo gdbserver 0.0.0.0:$GDBPORT ./$PROJ_NAME" >>   $DIR/../build/ntios/run.sh
+echo "gdbserver 0.0.0.0:$GDBPORT ./$PROJ_NAME" >>   $DIR/../build/ntios/run.sh
 
 # Define the name of the local folder and the remote folder
 LOCAL_FOLDER=$DIR/../build/ntios
