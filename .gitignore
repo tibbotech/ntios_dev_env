@@ -9,3 +9,5 @@ build/
 ntios/inc/
 ntios/libs/
 ntios/deb/
+ntios/libraries/
+ntios/python/
