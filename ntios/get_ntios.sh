@@ -75,6 +75,14 @@ mkdir -p /home/ubuntu/
 cp -r  $DIR/../ntios/    /home/ubuntu/
 
 
+#prepare the libraries 
+if [ -d "libraries" ]; then
+    rm -rf libraries
+fi
+
+mkdir libraries
+cp -r deb/usr/src/ntios/libraries/ .
+
 
 #remove the deb directory
 rm -rf deb
