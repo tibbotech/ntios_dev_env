@@ -63,5 +63,18 @@ fi
 mkdir libs
 cp -r deb/usr/lib/arm-linux-gnueabihf/* libs
 
+
+#check if /home/ubuntu exists and if it does delete it
+if [ -d "/home/ubuntu" ]; then
+    rm -rf /home/ubuntu
+fi
+
+mkdir -p /home/ubuntu/  
+
+#copy one level up to /home/ubuntu
+cp -r  $DIR/../ntios/    /home/ubuntu/
+
+
+
 #remove the deb directory
 rm -rf deb

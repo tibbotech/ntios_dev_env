@@ -1,6 +1,6 @@
 handle SIGALRM ignore
 set pagination off
-set sysroot /usr/arm-linux-gnueabihf/
+set sysroot /
 
 python
 import gdb
