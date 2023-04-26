@@ -10,7 +10,7 @@ else
 fi
 
 if [ -z "$2" ]; then
-    version_number="0.6.0-1"
+    version_number="0.6.4-1"
 else 
     version_number=$2
 fi
